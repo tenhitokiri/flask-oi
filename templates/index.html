@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flask Socket IO</title>
+</head>
+
+<body>
+    <h1>HOLAS, Socket IO Conectado </h1>
+    <ul id="messages"></ul>
+    <input type="text" id="miMensaje">
+    <button id="send">enviar</button>
+
+
+    <!-- Jquery-->
+    <script src="{{url_for('static', filename='js/jquery.js')}}"></script>
+    <!-- Socket.io-->
+    <script src="{{url_for('static', filename='js/socket.io.js')}}"></script>
+
+    <script>
+        const socket = io();
+        socket.on('message', (msg) => {
+            $('#messages').append('<li>' + msg + '</li>')
+        })
+
+        $('#send').on('click', click => {
+            const mensaje = $('#miMensaje').val()
+            socket.send(mensaje)
+            console.log($('#miMensaje').val());
+            $('#miMensaje').val('')
+        })
+    </script>
+</body>
+
+</html>
